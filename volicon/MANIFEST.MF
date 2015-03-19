@@ -1,0 +1,2 @@
+Main-Class: volicon.rpmservicevisits.RPMServiceVisits
+Class-Path: log4j-1.2.15.jar

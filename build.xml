@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<project name="volicon" default="build">
+  <path id="classpath">
+    <pathelement location="/home/v815977/java-lib/log4j-1.2.15.jar"/>
+  </path>
+  <target name="init">
+    <mkdir dir="volicon/rpmservicevisits/classes"/>
+    <mkdir dir="lib"/>
+  </target>
+  <target name="compile" depends="init">
+    <javac includeantruntime="false" 
+	   debug="true"
+           srcdir="volicon/rpmservicevisits"
+           destdir="volicon/rpmservicevisits/classes">
+       <classpath refid="classpath"/>
+    </javac>
+    <echo> Compilation Completed! </echo>
+  </target>
+  <target name="build" depends="compile">
+    <jar destfile="lib/volicon.jar"
+         basedir="volicon/rpmservicevisits/classes"
+         manifest="volicon/MANIFEST.MF">
+    </jar>
+  </target>
+  <target name="clean">
+    <delete file="lib/volicon.jar" />
+    <delete dir="volicon/rpmservicevisits/classes" />
+  </target>  
+</project>
