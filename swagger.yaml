@@ -1,0 +1,643 @@
+swagger: "2.0"
+info:
+  description: ""
+  version: ""
+  title: "Case Management"
+  termsOfService: ""
+  contact:
+    email: "apiteam@swagger.io"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "ey9omda6.vzbi.com:7001"
+basePath: "/NPIRestService/rest/CaseService/"
+tags:
+- name: "savecase"
+  description: "Creating cases for FIOS DATA, FIOS, FIOS VOD, IPTV, L2A, VOIP, PIP BGP Idle product"
+- name: "saveFiosLVCase"
+  description: "Creating cases for FIOS LV product"
+- name: "savesescase"
+  description: "Creating SES cases"
+- name: "closecase"
+  description: "Close a case created"
+- name: "remarks"
+  description: ""
+- name: "uwarequest"
+  description: "Receive requests from UWA"
+- name: "savetraffictrend"
+  description: "Receive anomaly data for circuits from Rules Engine"
+schemes:
+- "http"
+paths:
+  /savecase:
+    post:
+      tags:
+      - "savecase"
+      summary: "Creating cases for sending it to Vrepair or CFH"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Case that needs to be sent to Vrepair or CFH"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/savecase"
+      responses:
+        200:
+          description: "Case Successfully Created -200 Ok"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/savecaseResponse"
+  /saveFiosLVCase:
+    post:
+      tags:
+      - "saveFiosLVCase"
+      summary: "Creating cases for FIOS LV product"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Cases for FIOS LV product"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/saveFiosLVCase"
+      responses:
+        200:
+          description: "Data Saved Successfully."
+  /savesescase:
+    post:
+      tags:
+      - "savesescase"
+      summary: "Creates cases for SES product"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Cases for SES product"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/savesescase"
+      responses:
+        200:
+          description: "Data Saved Successfully."
+  /closecase:
+    post:
+      tags:
+      - "closecase"
+      summary: "Changes the status of a created case"
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Changes the status of a created case"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/closecase"
+      responses:
+        200:
+          description: "Case Closed successfully delivered to vRepair- 200 OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/closecaseResponse"
+  /remarks:
+    post:
+      tags:
+      - "remarks"
+      summary: ""
+      description: ""
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: ""
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/remarks"
+      responses:
+        200:
+          description: "Remarked added successfully and delivered to vRepair- 200 OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/remarksResponse"
+  /uwarequest:
+    post:
+      tags:
+      - "uwarequest"
+      summary: ""
+      description: "Receives request from UWA"
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Request from UWA"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/uwarequest"
+      responses:
+        400:
+          description: "Request already received by NPI In-progress"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/uwarequestResponse"
+  /savetraffictrend:
+    post:
+      tags:
+      - "savetraffictrend"
+      summary: ""
+      description: "Receives anomaly data for circuits from Rules Engine"
+      operationId: ""
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Anomaly data for circuits from Rules Engine"
+        required: true
+        schema:
+          type: "array"
+          items:
+            $ref: "#/definitions/savetraffictrend"
+      responses:
+        200:
+          description: "Request received successfully"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/savetraffictrendResponse"
+definitions:
+  savesescase:
+    type: "object"
+    properties:
+      SourceSystem:
+        type: "string"
+        example: "NPI_STORM"
+      ProductName:
+        type: "string"
+        example: "SES"
+      SubSourceType:
+        type: "string"
+        example: "eHealth"
+      FirstAlertedTS:
+        type: "string"
+        example: "1543300800"
+      LatestAlertedTS:
+        type: "string"
+        example: "1543301400"
+      ElementType:
+        type: "string"
+        example: "PORT"
+      EntityType:
+        type: "string"
+        example: "PORT"
+      ElementName:
+        type: "string"
+        example: "DCDP_A-1/1/7-Ethernet"
+      AlertCategory:
+        type: "string"
+        example: "Static Thresholding"
+      KPIMeasure:
+        type: "string"
+        example: "Trunk Errors Out Auto Alarm"
+      MeasurementValue:
+        type: "string"
+        example: "2.0"
+      TriggerUnitsofMeasure:
+        type: "string"
+        example: "count"
+      Severity:
+        type: "string"
+        example: "Critical"
+      ThresholdValue:
+        type: "string"
+        example: "1"
+      SendtoNOC:
+        type: "string"
+        example: "Y"
+      TriggerDescription:
+        type: "string"
+        example: "DCDP_A 1/1/7 is transmitting errors"
+      AnomalyId:
+        type: "string"
+        example: "2834919563"
+      CustomerDescription:
+        type: "string"
+        example: "Trunk Port Auto Alarm"
+      EventStatus:
+        type: "string"
+        example: "NEW"
+      SourceEventID:
+        type: "string"
+        example: "197369933"
+      AlertCount:
+        type: "string"
+        example: "3"
+  closecase:
+    type: "object"
+    properties:
+      CaseID:
+        type: "string"
+        example: "13643"
+      Remarks:
+        type: "string"
+        example: "close out"
+  saveFiosLVCase:
+    type: "object"
+    required:
+    - "SourceSystem"
+    - "SourceEventID"
+    - "EventStatus"
+    - "SendtoNOC"
+    - "SourceEventType"
+    - "ProductName"
+    - "SubSourceType"
+    - "LatestAlertedTS"
+    - "TriggerType"
+    - "TriggerDescription"
+    - "ChannelName"
+    - "CaseType"
+    - "TotalEventDuration"
+    properties:
+      TriggerDescription:
+        type: "string"
+        example: "Channel Unavailable VSO"
+      ProductName:
+        type: "string"
+        example: "FIOS Linear"
+      NumberEvents:
+        type: "string"
+        example: "2"
+      EventStatus:
+        type: "string"
+        example: "END"
+      channelMappingCounts:
+        type: "string"
+        example: "1900|VHO Generic Slate HD 1 (MPEG4)|41|101|Cisco|14"
+      SourceEventID:
+        type: "string"
+        example: "14321"
+      CiscoStbCount:
+        type: "string"
+        example: "12"
+      StbNames:
+        type: "string"
+        example: "PKGWBXLPJ,PKKZMPPFZ,PKGWLQZDM,PKCQVDXWH,PKGXDWGGD,PKKXMFKBX,PKKZDNHHF,PKKXSJWMJ,PKCSBJKMN,PKCRHVQNX,PKCRHWDTN,PKGXJNHJJ"
+      FirstAlertedTS:
+        type: "string"
+        example: "1520292000"
+      EIA:
+        type: "string"
+        example: "101"
+      AlertCategory:
+        type: "string"
+        example: "Adaptive Thresholding"
+      CustomerImpact:
+        type: "string"
+        example: "S"
+      SubProduct:
+        type: "string"
+        example: "Channel Unavailable"
+      TriggerType:
+        type: "string"
+        example: "VSO"
+      MPEG:
+        type: "string"
+        example: "41"
+      AlarmKey:
+        type: "string"
+        example: "TNTNMAPL"
+      ResearchMethod:
+        type: "string"
+        example: "A"
+      VHOID:
+        type: "string"
+        example: "VHO-6"
+      TotalEventDuration:
+        type: "string"
+        example: "00:09:00"
+      LatestAlertedTS:
+        type: "string"
+        example: "1520292540"
+      ChannelPosition:
+        type: "string"
+        example: "1900"
+      Severity:
+        type: "string"
+        example: "Minor"
+      Vendor:
+        type: "string"
+        example: "Cisco"
+      VSOID:
+        type: "string"
+        example: "TNTNMAPL"
+      SendtoNOC:
+        type: "string"
+        example: "Y"
+      NOCType:
+        type: "string"
+        example: "FNOC"
+      ArrisStbCount:
+        type: "string"
+        example: "0"
+      ChannelName:
+        type: "string"
+        example: "VHO Generic Slate HD 1 (MPEG4)"
+      CaseType:
+        type: "string"
+        example: "Channel Unavailable"
+      SourceSystem:
+        type: "string"
+        example: "NPI_STORM"
+      StbCount:
+        type: "string"
+        example: "12"
+      SourceEventType:
+        type: "string"
+        example: "C"
+      SubSourceType:
+        type: "string"
+        example: "IMG"
+  uwarequest:
+    type: "object"
+    properties:
+      EventId:
+        type: "string"
+        example: "66402814"
+      InitialAlarmTimestamp:
+        type: "string"
+        example: "1544027387"
+      ClearAlarmTimestamp:
+        type: "string"
+        example: "1544027687"
+      Circuit:
+        type: "string"
+        example: "RCBLXP000756VZ"
+      RequestType:
+        type: "string"
+        example: "1"
+  savetraffictrend:
+    type: "object"
+    required:
+    - "requestId"
+    - "circuit"
+    - "trafficNormalCheckTimestamp"
+    - "trafficTrendBytesOut"
+    - "trafficAtTimeOfCheck"
+    - "percentageDelta"
+    - "acceptableTrafficPercentage"
+    - "verifiedCode"
+    - "description"
+    properties:
+      requestId:
+        type: "string"
+        example: "261"
+      circuit:
+        type: "string"
+        example: "AAVLXP000936VZ"
+      trafficNormalCheckTimestamp:
+        type: "string"
+        example: "1549918818751"
+      trafficTrendBytesOut:
+        type: "string"
+        example: "1616.50"
+      trafficAtTimeOfCheck:
+        type: "string"
+        example: "464.22"
+      percentageDelta:
+        type: "string"
+        example: "71.28"
+      acceptableTrafficPercentage:
+        type: "string"
+        example: "10.0"
+      verifiedCode:
+        type: "string"
+        example: "NO"
+      description:
+        type: "string"
+        example: "Traffic is not Normal for Circuit - AAVLXP000936VZ"
+  remarks:
+    type: "object"
+    properties:
+      TicketID:
+        type: "string"
+        example: "VAQ3785128"
+      Remarks:
+        type: "string"
+        example: "Testing Attaching SYS-PERF ticket VAQH001134 ticket as a child"
+      GroupAttach:
+        type: "string"
+        example: "Y"
+      GroupTicket:
+        type: "string"
+        example: "VAQH001134"
+  savecase:
+    type: "object"
+    required:
+    - "AlarmKey"
+    - "FirstAlertedTS"
+    - "LatestAlertedTS"
+    - "Cause"
+    - "CaseDescription"
+    - "ElementType"
+    - "ElementName"
+    - "DeviceClli"
+    - "Vendor"
+    - "StateCode"
+    - "SendtoNOC"
+    - "NOCType"
+    - "TargetApplication"
+    - "ProductName"
+    - "SourceSystem"
+    - "SubSourceSystem"
+    - "KPIMeasure"
+    - "ThresholdValue"
+    - "TriggerType"
+    - "TriggerValue"
+    - "TriggerUnitsofMeasure"
+    properties:
+      AlarmKey:
+        type: "string"
+        example: "system_error|BSTNMA-VFTTP-328"
+      FirstAlertedTS:
+        type: "string"
+        example: "1535241600"
+      LatestAlertedTS:
+        type: "string"
+        example: "1539129600"
+      ResearchMethod:
+        type: "string"
+        example: "M"
+      Cause:
+        type: "string"
+        example: "System Error"
+      CaseDescription:
+        type: "string"
+        example: "Major alarm set, FPC 7 Major Errors"
+      ElementType:
+        type: "string"
+        example: "Device"
+      ElementName:
+        type: "string"
+        example: "WVA23/OMC/INHLVAXA/NKVLVAXA"
+      DeviceClli:
+        type: "string"
+        example: "WVA23/OMC/INHLVAXA/NKVLVAXA"
+      Vendor:
+        type: "string"
+        example: "JUNIPER"
+      DeviceModel:
+        type: "string"
+        example: "MX960"
+      StateCode:
+        type: "string"
+        example: "VA"
+      IPAddress:
+        type: "string"
+        example: "172.20.149.203"
+      SendtoNOC:
+        type: "string"
+        example: "Y"
+      NOCType:
+        type: "string"
+        example: "GTNOC"
+      AlarmType:
+        type: "string"
+        example: "TEST_Alarm_Type_3/21"
+      TargetApplication:
+        type: "string"
+        example: "VREPAIR"
+      ProductName:
+        type: "string"
+        example: "FIOS"
+      SourceSystem:
+        type: "string"
+        example: "Splunk"
+      SubSourceType:
+        type: "string"
+        example: "Syslog"
+      ThresholdValue:
+        type: "string"
+        example: "0"
+      TriggerType:
+        type: "string"
+        example: "system_error"
+      TriggerValue:
+        type: "string"
+        example: "8"
+      TriggerUnitsofMeasure:
+        type: "string"
+        example: "Count"
+      GroupType:
+        type: "string"
+        example: "TCF"
+  savecaseResponse:
+    type: "object"
+    properties:
+      CaseSeq:
+        type: "string"
+        example: "7556797"
+      TicketID:
+        type: "string"
+        example: "MA78000259"
+      SourceEventID:
+        type: "string"
+        example: "TRANSPORT5610730"
+      Disposition:
+        type: "string"
+        example: "Case Successfully Created -200 Ok"
+  remarksResponse:
+    type: "object"
+    properties:
+      CaseID:
+        type: "integer"
+        example: 0
+      TicketID:
+        type: "string"
+        example: "VAQ3785128"
+      Disposition:
+        type: "string"
+        example: "Remarked added successfully and delivered to vRepair- 200 OK"
+  uwarequestResponse:
+    type: "object"
+    properties:
+      EventId:
+        type: "string"
+        example: "66402814"
+      Circuit:
+        type: "string"
+        example: "RCBLXP000756VZ"
+      RequestType:
+        type: "string"
+        example: "1"
+      AckFlag:
+        type: "string"
+        example: "Yes"
+      Description:
+        type: "string"
+        example: "Request already received by NPI In-progress"
+  savetraffictrendResponse:
+    type: "object"
+    properties:
+      RequestId:
+        type: "string"
+        example: "261"
+      Circuit:
+        type: "string"
+        example: "AAVLXP000936VZ"
+      Description:
+        type: "string"
+        example: "Request received successfully"
+  closecaseResponse:
+    type: "object"
+    properties:
+      TicketID:
+        type: "string"
+        example: "NYW3107824"
+      Disposition:
+        type: "string"
+        example: "Case Closed successfully delivered to vRepair- 200 OK"
